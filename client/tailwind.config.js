@@ -17,6 +17,9 @@ module.exports = {
         circle: "circle 6s linear infinite",
         "circle-reverse": "circle-reverse 6s linear infinite",
       },
+      fontFamily: {
+        sans: ["Oswald", "sans-serif"],
+      },
     },
   },
   plugins: [require("daisyui")],

@@ -1,10 +1,10 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Header from "./Header";
-import headerbg from "../Images/Clothes/Born/vibesdelante.webp";
+import headerbg from "../Images/Clothes/Born/vibesadelante.png";
 export default function NoSense() {
   return (
-    <div className="bg-black ">
+    <div className="bg-stone-300 ">
       <div
         className="h-screen"
         style={{
