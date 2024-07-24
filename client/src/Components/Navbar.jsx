@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../Images/NoSenseLogo.png";
 import { BsCart2 } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
+  const location = useLocation();
+  const [bgColor, setBgColor] = useState("bg-gray-800"); // Color de fondo por defecto
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/":
+        setBgColor("");
+        break;
+      case "/catálogo":
+        setBgColor("bg-gray-100");
+        break;
+      default:
+        setBgColor("");
+    }
+  }, [location.pathname]);
   return (
-    <nav class="">
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a
-          href="https://flowbite.com/"
-          class="flex items-center space-x-3 rtl:space-x-reverse"
-        >
+    <nav class={`${bgColor}`}>
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logo} class="h-8" alt="Flowbite Logo" />
         </a>
         <button
@@ -41,7 +54,7 @@ export default function Navbar() {
             <li>
               <a
                 href="#"
-                class="block py-2 px-3 text-white  hover:text-red-600 rounded md:bg-transparent  md:p-0 da"
+                class="block py-2 px-3 text-black  hover:text-red-600 rounded md:bg-transparent  md:p-0 da"
                 aria-current="page"
               >
                 SOBRE NOSOTROS
@@ -51,7 +64,7 @@ export default function Navbar() {
             <li>
               <a
                 href="#"
-                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-red-600  md:p-0 dark:text-white  "
+                class="block py-2 px-3 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-red-600  md:p-0   "
               >
                 CONTACTO
               </a>
@@ -59,8 +72,8 @@ export default function Navbar() {
 
             <li>
               <a
-                href="#"
-                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-red-600  md:p-0 dark:text-white  "
+                href="/catálogo"
+                class="block py-2 px-3 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-red-600  md:p-0  "
               >
                 CATÁLOGO
               </a>

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Header from "./Header";
-import headerbg from "../Images/Clothes/Born/vibesadelante.png";
+import headerbg from "../Images/Clothes/Vibes/vibesadelante.png";
 export default function NoSense() {
   return (
     <div className="bg-stone-300 ">

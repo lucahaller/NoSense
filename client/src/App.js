@@ -5,15 +5,13 @@ import { BrowserRouter, Route } from "react-router-dom";
 import NoSense from "./Components/NoSense";
 import Footer from "./Components/Footer";
 import Navbar from "./Components/Navbar";
+import Rutas from "./Routes/Rutas";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div>
-        <NoSense />
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <div className="">
+      <Rutas />
+    </div>
   );
 }
 
