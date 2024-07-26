@@ -11,24 +11,27 @@ const initialState = {
   shirts: [
     {
       id: 1,
+      color: ["black"],
       title: "Born Again T-Shirt",
       price: 25000,
       images: [brie1, brie2],
-      tales: ["m", "l", "xl"],
+      tales: ["l", "xl"],
     },
     {
       id: 2,
+      color: ["black"],
       title: "Vibes T-Shirt",
       price: 25000,
       images: [vibes1, vibes2],
-      tales: ["m", "l", "xl"],
+      tales: ["l", "xl"],
     },
     {
       id: 3,
+      color: ["black"],
       title: "Visión David T-Shirt",
       price: 25000,
       images: [vision1, vision2],
-      tales: ["m", "l", "xl"],
+      tales: ["l", "xl"],
     },
   ],
 };
