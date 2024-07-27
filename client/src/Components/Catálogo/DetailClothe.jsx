@@ -10,7 +10,8 @@ export default function DetailClothe() {
 
   // Estado para la imagen principal
   const [mainImage, setMainImage] = useState(shirt?.images[0]);
-
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
   return (
     <div className="h-full w-full">
       <section className="text-gray-600 body-font overflow-hidden">
@@ -48,59 +49,59 @@ export default function DetailClothe() {
             </div>
 
             {/* Detalles de la Camiseta */}
-            <div className="lg:w-1/3 w-full lg:pl-0 lg:py-6 mt-6 lg:mt-0 flex justify-center flex-col">
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+            <div className="lg:w-1/3 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0 flex justify-center flex-col">
+              <h1 className="text-gray-900 font-bebas text-5xl  font-medium mb-1">
                 {shirt?.title}
               </h1>
-
-              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+              <span className="title-font font-medium text-2xl text-gray-900">
+                ${shirt.price}
+              </span>
+              <div className="flex text-2xl  mt-6 items-center   border-gray-100 mb-5">
                 {/* Colores */}
-                <div className="flex">
-                  <span className="mr-3">Color</span>
-                  {shirt.color.map((color, index) => (
-                    <button
-                      key={index}
-                      className={`border-2 border-gray-300 ml-1 rounded-full w-6 h-6 focus:outline-none`}
-                      style={{ backgroundColor: color }}
-                    >
-                      {/* Puedes poner un texto o un icono dentro del botón si es necesario */}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Tamaños */}
-                <div className="flex ml-6 items-center">
-                  <span className="mr-3">Size</span>
-                  <div className="relative">
-                    <select className="rounded border bg-white appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                      {shirt.tales &&
-                        shirt?.tales.map((tale, index) => (
-                          <option key={index}>{tale.toUpperCase()}</option>
-                        ))}
-                    </select>
-                    <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                      <svg
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        className="w-4 h-4"
-                        viewBox="0 0 24 24"
+                <div className="flex flex-col">
+                  <span className="mr-3 font-bebas text-xl">Color</span>
+                  <div className="mt-3">
+                    {shirt.color.map((color, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedColor(color)} // Cambiar el color seleccionado
+                        className={`border-2 ml-1 rounded-full w-8 h-8 focus:outline-none transition-all duration-200 ease-in-out ${
+                          selectedColor === color
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
+                        style={{ backgroundColor: color }}
                       >
-                        <path d="M6 9l6 6 6-6"></path>
-                      </svg>
-                    </span>
+                        {/* Puedes poner un texto o un icono dentro del botón si es necesario */}
+                      </button>
+                    ))}
                   </div>
                 </div>
-              </div>
 
+                {/* Tamaños como Botones */}
+              </div>
+              <div className="flex flex-col text-xl">
+                <span className="mr-3">Size</span>
+                <div className="relative">
+                  {shirt?.tales &&
+                    shirt?.tales.map((tale, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedSize(tale)} // Cambiar el tamaño seleccionado
+                        className={`border-2 rounded-sm mr-2 px-4 py-2 transition-all duration-200 ease-in-out ${
+                          selectedSize === tale
+                            ? "bg-black text-white border-red-500"
+                            : "bg-white text-black border-black hover:bg-slate-400 hover:text-white"
+                        }`}
+                      >
+                        {tale.toUpperCase()}
+                      </button>
+                    ))}
+                </div>
+              </div>
               {/* Precio y Botón de Carrito */}
-              <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">
-                  ${shirt.price}
-                </span>
-                <button className="flex text-lg font-semibold items-center justify-center gap-3 ml-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
+              <div className="flex mt-4">
+                <button className="flex text-lg font-semibold items-center w-full justify-center gap-3 ml-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
                   Agregar al carrito
                   <FaCartPlus />
                 </button>

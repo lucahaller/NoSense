@@ -19,6 +19,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Oswald", "sans-serif"],
+        bebas: ["Bebas Neue", "sans-serif"],
       },
     },
   },
