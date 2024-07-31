@@ -103,7 +103,7 @@ export default function Cart({ isOpen, toggleCart }) {
                             producto.color
                           )
                         }
-                        className="text-green-500 hover:text-green-700 ml-2"
+                        className="text-black-500 hover:text-gray-700 ml-2"
                       >
                         <FaPlus />
                       </button>
@@ -148,14 +148,16 @@ export default function Cart({ isOpen, toggleCart }) {
         <div className="p-4 border-t border-gray-200">
           <button
             onClick={handleCompraPorWhatsApp}
-            className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 flex items-center justify-center space-x-2"
+            className="w-full flex flex-row bg-black text-lg text-white py-2 px-4 rounded hover:bg-gray-600 flex items-center justify-center space-x-2"
           >
-            <FaWhatsapp />
-            <span>Comprar por WhatsApp</span>
+            <span>Hacer pedido</span>
+            {/* <div className="ml-auto">
+              <FaWhatsapp />
+            </div> */}
           </button>
           <button
             onClick={handleLimpiarCarrito}
-            className="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 mt-2"
+            className="w-full bg-white hover:text-white border-black border-2 text-black py-2 px-4 rounded hover:bg-red-600 mt-2"
           >
             Limpiar Carrito
           </button>
