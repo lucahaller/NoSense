@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   eliminarProducto,
   limpiarCarrito,
-} from "../Redux/Actions/carritoActions";
-import { FaTrash, FaWhatsapp } from "react-icons/fa";
+  incrementarCantidad,
+  decrementarCantidad,
+} from "../Redux/Actions/carritoActions"; // Asegúrate de importar las nuevas acciones
+import { FaTrash, FaWhatsapp, FaPlus, FaMinus } from "react-icons/fa";
 
 export default function Cart({ isOpen, toggleCart }) {
   const carrito = useSelector((state) => state.carrito.carrito);
@@ -16,6 +18,14 @@ export default function Cart({ isOpen, toggleCart }) {
 
   const handleLimpiarCarrito = () => {
     dispatch(limpiarCarrito());
+  };
+
+  const handleIncrementarCantidad = (id, size, color) => {
+    dispatch(incrementarCantidad(id, size, color));
+  };
+
+  const handleDecrementarCantidad = (id, size, color) => {
+    dispatch(decrementarCantidad(id, size, color));
   };
 
   const handleCompraPorWhatsApp = () => {
@@ -70,11 +80,11 @@ export default function Cart({ isOpen, toggleCart }) {
                 key={index}
                 className="flex items-center justify-between py-2 border-b border-gray-200"
               >
-                <div>
+                <div className="flex flex-row">
                   <img
                     src={producto.image}
                     alt={producto.title}
-                    className="h-12 w-12 object-cover rounded mr-4"
+                    className="h-16 w-14 object-cover rounded mr-4"
                   />
                   <div className="flex flex-col">
                     <span className="text-sm font-medium">
@@ -83,8 +93,32 @@ export default function Cart({ isOpen, toggleCart }) {
                     <span className="text-xs text-gray-500">
                       {producto.size} - {producto.color}
                     </span>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-gray-500 flex items-center">
                       Cantidad: {producto.cantidad}
+                      <button
+                        onClick={() =>
+                          handleIncrementarCantidad(
+                            producto.id,
+                            producto.size,
+                            producto.color
+                          )
+                        }
+                        className="text-green-500 hover:text-green-700 ml-2"
+                      >
+                        <FaPlus />
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleDecrementarCantidad(
+                            producto.id,
+                            producto.size,
+                            producto.color
+                          )
+                        }
+                        className="text-red-500 hover:text-red-700 ml-2"
+                      >
+                        <FaMinus />
+                      </button>
                     </span>
                   </div>
                 </div>
@@ -100,7 +134,7 @@ export default function Cart({ isOpen, toggleCart }) {
                         producto.color
                       )
                     }
-                    className="text-red-500 hover:text-red-700"
+                    className="text-gray-500 hover:text-gray-700"
                   >
                     <FaTrash />
                   </button>

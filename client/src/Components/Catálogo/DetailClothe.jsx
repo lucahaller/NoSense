@@ -1,8 +1,10 @@
-import React, { useState } from "react"; // Importa useState
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaCartPlus } from "react-icons/fa";
 import { agregarProducto } from "../../Redux/Actions/carritoActions";
+import Modal from "./Modal";
+
 export default function DetailClothe({ toggleCart }) {
   const { id } = useParams(); // Obtén el id de los parámetros de la URL
   const shirts = useSelector((state) => state.shirts.shirts);
@@ -11,8 +13,8 @@ export default function DetailClothe({ toggleCart }) {
   const [mainImage, setMainImage] = useState(shirt?.images[0]);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0); // Estado para el índice de la imagen seleccionada
   const dispatch = useDispatch();
-  // Estado para la imagen principal
 
   function handleAgregarclothe() {
     if (selectedSize && selectedColor) {
@@ -31,6 +33,14 @@ export default function DetailClothe({ toggleCart }) {
       alert("Por favor, selecciona un color y una talla.");
     }
   }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleThumbnailClick = (image, index) => {
+    setMainImage(image); // Cambiar la imagen principal
+    setSelectedImageIndex(index); // Establecer el índice de la imagen seleccionada
+  };
+
   return (
     <div className="h-full w-full">
       <section className="text-gray-600 body-font overflow-hidden">
@@ -47,11 +57,11 @@ export default function DetailClothe({ toggleCart }) {
                       alt={`thumbnail-${index}`}
                       className={`h-24 w-24 object-cover rounded cursor-pointer ${
                         mainImage === image
-                          ? "border-2 border-indigo-500" // Marcar la imagen seleccionada
+                          ? "border-2 border-red-700" // Marcar la imagen seleccionada
                           : "border-2 border-transparent"
                       }`}
                       src={image}
-                      onClick={() => setMainImage(image)} // Cambiar la imagen principal al hacer clic
+                      onClick={() => handleThumbnailClick(image, index)} // Llamar a la nueva función
                     />
                   ))}
                 </div>
@@ -61,8 +71,9 @@ export default function DetailClothe({ toggleCart }) {
               <div className="w-full h-[600px] flex items-center  justify-center md:justify-normal ">
                 <img
                   alt="ecommerce"
-                  className="md:w-auto w-full h-full rounded sm:object-scale-down"
+                  className="md:w-auto w-full h-full rounded sm:object-scale-down cursor-pointer"
                   src={mainImage}
+                  onClick={() => setIsModalOpen(true)}
                 />
               </div>
             </div>
@@ -107,10 +118,10 @@ export default function DetailClothe({ toggleCart }) {
                       <button
                         key={index}
                         onClick={() => setSelectedSize(tale)} // Cambiar el tamaño seleccionado
-                        className={`border-2 rounded-sm mr-2 px-4 py-2 transition-all duration-200 ease-in-out ${
+                        className={`border-2 rounded-sm mr-2 px-3 py-1 transition-all duration-200 ease-in-out ${
                           selectedSize === tale
                             ? "bg-black text-white border-red-500"
-                            : "bg-white text-black border-black hover:bg-slate-400 hover:text-white"
+                            : "bg-white text-black border-black hover:bg-gray-700 hover:text-white"
                         }`}
                       >
                         {tale.toUpperCase()}
@@ -122,7 +133,7 @@ export default function DetailClothe({ toggleCart }) {
               <div className="flex mt-4">
                 <button
                   onClick={handleAgregarclothe}
-                  className="flex text-lg font-semibold items-center w-full justify-center gap-3 ml-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+                  className="flex text-lg font-semibold items-center w-full justify-center gap-3 ml-auto text-white bg-black border-0 py-2 px-5 focus:outline-none hover:bg-gray-700   rounded"
                 >
                   Agregar al carrito
                   <FaCartPlus />
@@ -131,6 +142,12 @@ export default function DetailClothe({ toggleCart }) {
             </div>
           </div>
         </div>
+        <Modal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          images={shirt.images}
+          initialIndex={selectedImageIndex} // Pasar el índice inicial al Modal
+        />
       </section>
     </div>
   );
