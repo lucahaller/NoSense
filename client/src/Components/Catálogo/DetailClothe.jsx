@@ -1,17 +1,36 @@
 import React, { useState } from "react"; // Importa useState
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaCartPlus } from "react-icons/fa";
-
-export default function DetailClothe() {
+import { agregarProducto } from "../../Redux/Actions/carritoActions";
+export default function DetailClothe({ toggleCart }) {
   const { id } = useParams(); // Obtén el id de los parámetros de la URL
   const shirts = useSelector((state) => state.shirts.shirts);
   const shirt = shirts.find((e) => e.id == id);
 
-  // Estado para la imagen principal
   const [mainImage, setMainImage] = useState(shirt?.images[0]);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
+  const dispatch = useDispatch();
+  // Estado para la imagen principal
+
+  function handleAgregarclothe() {
+    if (selectedSize && selectedColor) {
+      dispatch(
+        agregarProducto({
+          id: shirt.id,
+          title: shirt.title,
+          price: shirt.price,
+          image: mainImage,
+          size: selectedSize,
+          color: selectedColor,
+        })
+      );
+      toggleCart();
+    } else {
+      alert("Por favor, selecciona un color y una talla.");
+    }
+  }
   return (
     <div className="h-full w-full">
       <section className="text-gray-600 body-font overflow-hidden">
@@ -101,7 +120,10 @@ export default function DetailClothe() {
               </div>
               {/* Precio y Botón de Carrito */}
               <div className="flex mt-4">
-                <button className="flex text-lg font-semibold items-center w-full justify-center gap-3 ml-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
+                <button
+                  onClick={handleAgregarclothe}
+                  className="flex text-lg font-semibold items-center w-full justify-center gap-3 ml-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+                >
                   Agregar al carrito
                   <FaCartPlus />
                 </button>
