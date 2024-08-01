@@ -55,7 +55,7 @@ const initialState = {
     {
       id: 5,
       color: ["black"],
-      title: "OffWhite London T-Shirt",
+      title: "OffWhite London Oversize T-Shirt",
       price: 12500,
       images: [owdelante1, owatras2],
       tales: ["m"],
@@ -63,7 +63,7 @@ const initialState = {
     {
       id: 6,
       color: ["white"],
-      title: "Unrestricted T-Shirt",
+      title: "Unrestricted Oversize T-Shirt",
       price: 12500,
       images: [o1, o2],
       tales: ["m"],
@@ -71,7 +71,7 @@ const initialState = {
     {
       id: 7,
       color: ["pink"],
-      title: "Strange Sense T-Shirt",
+      title: "Strange Sense Oversize T-Shirt",
       price: 12500,
       images: [s1, s2],
       tales: ["m"],
@@ -79,7 +79,7 @@ const initialState = {
     {
       id: 8,
       color: ["white"],
-      title: "Sacrifice Everything T-Shirt",
+      title: "Sacrifice Everything Oversize T-Shirt",
       price: 12500,
       images: [se1, se2],
       tales: ["l"],
@@ -87,7 +87,7 @@ const initialState = {
     {
       id: 9,
       color: ["white"],
-      title: "Distortion T-Shirt",
+      title: "Distortion Oversize T-Shirt",
       price: 12500,
       images: [d1, d2],
       tales: ["l"],
