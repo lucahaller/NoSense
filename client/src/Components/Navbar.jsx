@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import logo from "../Images/NoSenseLogo.png";
 import { useLocation } from "react-router-dom";
+import logo from "../Images/NoSenseLogo.png";
+import nosense2 from "../Images/NoSense.png";
 import { FaShoppingCart } from "react-icons/fa";
 import Cart from "./Cart"; // Importa el componente del carrito
 
@@ -8,6 +9,10 @@ export default function Navbar({ toggleCart }) {
   const location = useLocation();
   const [bgColor, setBgColor] = useState("bg-gray-800"); // Color de fondo por defecto
   const [isCartOpen, setIsCartOpen] = useState(false); // Estado para la visibilidad del carrito
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para la visibilidad del menú móvil
+
+  // Selecciona el logo según la ruta actual
+  const currentLogo = location.pathname === "/" ? logo : nosense2;
 
   useEffect(() => {
     switch (location.pathname) {
@@ -23,19 +28,23 @@ export default function Navbar({ toggleCart }) {
   }, [location.pathname]);
 
   // Función para alternar la visibilidad del carrito
+  const handleToggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
   return (
     <nav className={`${bgColor}`}>
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src={logo} className="h-8" alt="Flowbite Logo" />
+          <img src={currentLogo} className="h-10" alt="NoSense Logo" />
         </a>
         <button
+          onClick={handleToggleMenu} // Cambia la visibilidad del menú
           data-collapse-toggle="navbar-default"
           type="button"
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           aria-controls="navbar-default"
-          aria-expanded="false"
+          aria-expanded={isMenuOpen ? "true" : "false"} // Estado del menú
         >
           <span className="sr-only">Open main menu</span>
           <svg
@@ -54,22 +63,18 @@ export default function Navbar({ toggleCart }) {
             />
           </svg>
         </button>
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-sans items-center font-semibold text-2xl flex flex-col pt-10 md:p-0 mt-10 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
+        <div
+          className={`${
+            isMenuOpen ? "block" : "hidden"
+          } w-full md:block md:w-auto`} // Clases para controlar la visibilidad del menú
+          id="navbar-default"
+        >
+          <ul className="font-sans items-center justify-center font-semibold text-2xl flex flex-col pt-10 md:p-0 mt-10 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
             <li>
               <a
-                href="#"
-                className="block py-2 px-3 text-black  hover:text-red-600 rounded md:bg-transparent  md:p-0 da"
-                aria-current="page"
-              >
-                SOBRE NOSOTROS
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-red-600  md:p-0   "
+                href="/contacto"
+                className="block py-2 px-3 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-red-600 md:p-0"
+                onClick={() => setIsMenuOpen(false)} // Cierra el menú al hacer clic
               >
                 CONTACTO
               </a>
@@ -78,7 +83,8 @@ export default function Navbar({ toggleCart }) {
             <li>
               <a
                 href="/catálogo"
-                className="block py-2 px-3 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-red-600  md:p-0  "
+                className="block py-2 px-3 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-red-600 md:p-0"
+                onClick={() => setIsMenuOpen(false)} // Cierra el menú al hacer clic
               >
                 CATÁLOGO
               </a>
@@ -86,9 +92,10 @@ export default function Navbar({ toggleCart }) {
             <li>
               <button
                 onClick={toggleCart} // Cambia la visibilidad del carrito
-                className="flex text-black hover:text-red-600 cursor-pointer"
+                className="flex items-center text-black hover:text-red-600 cursor-pointer"
               >
-                <FaShoppingCart />
+                <span className="md:hidden  ">CARRITO</span>
+                <FaShoppingCart className=" hidden md:inline-flex mr-2" />
               </button>
             </li>
           </ul>
